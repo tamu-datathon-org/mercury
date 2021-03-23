@@ -1,0 +1,8 @@
+{
+  "routes": [
+    { "src": "/mailing/api(.*)", "dest": "/api/$1" },
+    { "src": "/mailing/_next(.*)", "dest": "/mailing/_next$1" },
+    { "src": "/mailing(.*)", "dest": "/mailing/$1" },
+    { "src": "/(.*)", "dest": "https://dev.tamudatathon.com/$1" }
+  ]
+}

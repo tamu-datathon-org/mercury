@@ -1,3 +1,6 @@
+.container.dark {
+  background-color: black !important;
+}
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
@@ -46,6 +49,9 @@
   text-decoration: underline;
 }
 
+.dark > .title {
+  color: green;
+}
 .title {
   margin: 0;
   line-height: 1.15;
