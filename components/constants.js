@@ -1,4 +1,6 @@
-const htmlContentPlaceholder = `<html>
+export const orgName = 'TAMU Datathon';
+
+export const htmlContentPlaceholder = `<html>
     <body>
     <div
         style="max-width:800px; background-color: #18125b; z-index: -1; position: absolute; top: 0; left: 0; padding: 20px">
@@ -56,4 +58,30 @@ const htmlContentPlaceholder = `<html>
     </body>
 </html>`;
 
-export default htmlContentPlaceholder;
+export const mailingLists = [
+  {
+    name: 'Participants',
+    id: 'participants',
+    members: []
+  },
+  {
+    name: 'Former Participants',
+    id: 'former_participants',
+    members: []
+  },
+  {
+    name: 'Sponsors',
+    id: 'sponsors',
+    members: []
+  },
+  {
+    name: 'Mentors',
+    id: 'mentors',
+    members: []
+  },
+  {
+    name: 'DS Students',
+    id: 'data_science_students',
+    members: []
+  }
+];

@@ -1,7 +1,7 @@
 import { Text, Page, Checkbox, Input, Textarea, Divider, Slider, Button, useToasts } from '@geist-ui/react';
 import { useState } from 'react';
 import { useActiveUser } from '../components/UserProvider';
-import htmlContentPlaceholder from '../components/constants';
+import { orgName, mailingLists, htmlContentPlaceholder } from '../components/constants';
 
 export default function Home() {
   const { user } = useActiveUser();
@@ -33,18 +33,18 @@ export default function Home() {
         <Text h2 style={{ marginBottom: '5px' }}>
           Mercury
         </Text>
-        <Text className="sub-heading">TD Email System</Text>
+        <Text className="sub-heading">{orgName} Email System</Text>
         {user?.isAdmin && <>you&apos;re an admin</>}
 
         <br />
         <Divider align="start">E-mail Recipients</Divider>
         <Text className="sub-heading">Choose which lists to send a mail to:</Text>
         <Checkbox.Group value={[]} size="medium" onChange={mailingListSelectionHandler}>
-          <Checkbox value="participants">Participants</Checkbox>
-          <Checkbox value="former_participants">Former Participants</Checkbox>
-          <Checkbox value="sponsors">Sponsors</Checkbox>
-          <Checkbox value="mentors">Mentors</Checkbox>
-          <Checkbox value="data_science_students">DS Students</Checkbox>
+          {mailingLists.map((mList, i) => (
+            <Checkbox key={`mailing-list-${i}`} value={mList.id}>
+              {mList.name}
+            </Checkbox>
+          ))}
         </Checkbox.Group>
 
         <br />
