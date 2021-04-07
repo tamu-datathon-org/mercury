@@ -18,3 +18,29 @@ a {
 main {
   padding: 0 !important;
 }
+
+iframe {
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.homepage-container {
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
+}
+
+.with-label {
+  width: 100% !important;
+}
+.with-label > .input-container.inp-full-width {
+  width: 100% !important;
+}
+
+.sub-heading {
+  margin-top: 0;
+  color: #555 !important;
+}
+
+.preview-dimensions-input-container {
+  margin-bottom: 10px;
+}
