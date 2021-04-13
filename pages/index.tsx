@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useActiveUser } from '../components/UserProvider';
 import { orgName, mailingLists, htmlContentPlaceholder } from '../components/constants';
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const { user } = useActiveUser();
   const [selectedMailingLists, setSelectedMailingLists] = useState([]);
   const [emailSubject, setEmailSubject] = useState(``);
@@ -17,9 +17,27 @@ export default function Home() {
     setSelectedMailingLists(values);
   };
 
-  const sendEmail = () => {
-    console.log('sending email to', selectedMailingLists, emailSubject);
-    sendNotification('E-mail send successfully!', 'warning');
+  const sendEmail = async () => {
+    const res = await fetch('/mailing/api/messages/send', {
+      body: JSON.stringify({
+        to: selectedMailingLists.join(),
+        from: process.env.NEXT_PUBLIC_SENDER_EMAIL,
+        subject: emailSubject,
+        html: emailHtml
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    });
+    if (res.status == 200) {
+      sendNotification('E-mail sent successfully!', 'success');
+      setTimeout(() => {
+        // reset form to prevent duplicate send
+      }, 5000);
+    } else {
+      sendNotification('E-mail failed to send!', 'error');
+    }
   };
 
   const sendNotification = (msg, intent) => {
@@ -41,7 +59,7 @@ export default function Home() {
         <Text className="sub-heading">Choose which lists to send a mail to:</Text>
         <Checkbox.Group value={[]} size="medium" onChange={mailingListSelectionHandler}>
           {mailingLists.map((mList, i) => (
-            <Checkbox key={`mailing-list-${i}`} value={mList.id}>
+            <Checkbox key={`mailing-list-${i}`} value={mList.address}>
               {mList.name}
             </Checkbox>
           ))}
