@@ -61,22 +61,22 @@ export const htmlContentPlaceholder = `<html>
 export const mailingLists = [
   {
     name: 'Participants',
-    address: 'dan@td.com'
+    address: 'mail_participants@td.com'
   },
   {
     name: 'Former Participants',
-    address: 'rish@td.com'
+    address: 'mail_former_participants@td.com'
   },
   {
     name: 'Sponsors',
-    address: ''
+    address: 'mail_sponsors@td.com'
   },
   {
     name: 'Mentors',
-    address: ''
+    address: 'mail_mentors@td.com'
   },
   {
     name: 'DS Students',
-    address: ''
+    address: 'mail_ds_students@td.com'
   }
 ];
