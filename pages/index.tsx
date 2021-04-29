@@ -55,21 +55,18 @@ export default function Home(): JSX.Element {
         <Text className="sub-heading">{orgName} Email System</Text>
         <br />
         {/* If user is not admin, deny access and prompt them to login */}
-        {!user?.isAdmin && (
-          <>
-            <Card>
-              <h4>Access Denied</h4>
-              <p>You do not have admin priviledges to send emails. Please login to an admin account to send bulk emails.</p>
-              <Card.Footer>
-                <Link color block href="/auth/login?r=/mailing/">
-                  Login
-                </Link>
-              </Card.Footer>
-            </Card>
-          </>
-        )}
-        {/* If user is admin, show everything normally */}
-        {user?.isAdmin && (
+        {!user?.isAdmin ? (
+          <Card>
+            <h4>Access Denied</h4>
+            <p>You do not have admin priviledges to send emails. Please login to an admin account to send bulk emails.</p>
+            <Card.Footer>
+              <Link color block href="/auth/login?r=/mailing/">
+                Login
+              </Link>
+            </Card.Footer>
+          </Card>
+        ) : (
+          /* If user is admin, show everything normally */
           <>
             <Divider align="start">E-mail Recipients</Divider>
             <Text className="sub-heading">Choose which lists to send a mail to:</Text>
