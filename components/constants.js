@@ -76,7 +76,7 @@ export const mailingLists = [
     address: 'mail_mentors@td.com'
   },
   {
-    name: 'DS Students',
-    address: 'mail_ds_students@td.com'
+    name: 'Just for testing',
+    address: 'test_account@tamudatathon.com'
   }
 ];
