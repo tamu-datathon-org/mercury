@@ -3,9 +3,10 @@ import { useState } from 'react';
 import { orgName, mailingLists, htmlContentPlaceholder } from '../components/constants';
 import { Navbar } from '../components/Navbar';
 import { useActiveUser } from '../components/UserProvider';
+import confetti from 'canvas-confetti';
 
 export default function Home(): JSX.Element {
-  const { user, status } = useActiveUser();
+  const { user } = useActiveUser();
   const [selectedMailingLists, setSelectedMailingLists] = useState([]);
   const [emailSubject, setEmailSubject] = useState(``);
   const [emailHtml, setEmailHtml] = useState(htmlContentPlaceholder);
@@ -17,6 +18,10 @@ export default function Home(): JSX.Element {
   const mailingListSelectionHandler = (values) => {
     setSelectedMailingLists(values);
   };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
   const sendEmail = async () => {
     const res = await fetch('/mailing/api/messages/send', {
@@ -32,17 +37,35 @@ export default function Home(): JSX.Element {
       method: 'POST'
     });
     if (res.status == 200) {
-      sendNotification('E-mail sent successfully!', 'success');
+      const body = await res.json();
+      sendNotification(`E-mail sent to Mailgun! ${body.message}`, 'success');
+
+      // animation variables
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, particleCount: 100 };
+
+      const interval = setInterval(function () {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) return clearInterval(interval);
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+      }, 250);
+
       setTimeout(() => {
         // reset form to prevent duplicate send
       }, 5000);
     } else {
-      sendNotification('E-mail failed to send!', 'error');
+      const error = await res.text();
+      sendNotification(`E-mail failed to send! ${error}`, 'error');
     }
   };
 
   const sendNotification = (msg, intent) => {
-    setToast({ text: msg, type: intent, delay: 3000 });
+    setToast({ text: msg, type: intent, delay: 8000 });
   };
 
   return (
@@ -97,7 +120,8 @@ export default function Home(): JSX.Element {
             <br />
             <br />
             <Divider align="start">Final Steps</Divider>
-            <Button type="secondary" ghost onClick={sendEmail}>
+            <Text className="sub-heading">Sending to: {selectedMailingLists.length == 0 ? `no one... add E-Mail Recipients above` : selectedMailingLists.join(', ')}</Text>
+            <Button type="secondary" ghost onClick={() => (confirm('Are you sure you want to send this email?') ? sendEmail() : undefined)}>
               Send E-mail
             </Button>
           </>

@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
   return new Promise(() => {
     mailgun.messages().send(req.body, (error, body) => {
       if (error) {
-        res.status(500).json(error);
+        res.status(500).send(String(error));
       } else {
         res.status(200).json(body);
       }
