@@ -1,9 +1,10 @@
 import { Text, Page, Checkbox, Input, Textarea, Divider, Slider, Button, useToasts, Card, Link } from '@geist-ui/react';
 import { useState } from 'react';
-import { orgName, mailingLists, htmlContentPlaceholder } from '../components/constants';
+import { orgName, htmlContentPlaceholder } from '../components/constants';
 import { Navbar } from '../components/Navbar';
 import { useActiveUser } from '../components/UserProvider';
 import confetti from 'canvas-confetti';
+import { useEffect } from 'react';
 
 export default function Home(): JSX.Element {
   const { user } = useActiveUser();
@@ -67,6 +68,13 @@ export default function Home(): JSX.Element {
   const sendNotification = (msg, intent) => {
     setToast({ text: msg, type: intent, delay: 8000 });
   };
+
+  const [mailingLists, setMailingLists] = useState([]);
+  useEffect(() => {
+    fetch('/mailing/api/lists/get')
+      .then((res) => res.json())
+      .then((data) => setMailingLists(data.items));
+  }, []);
 
   return (
     <>

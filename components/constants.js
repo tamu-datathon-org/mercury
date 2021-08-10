@@ -57,26 +57,3 @@ export const htmlContentPlaceholder = `<html>
     </div>
     </body>
 </html>`;
-
-export const mailingLists = [
-  {
-    name: 'Participants',
-    address: 'mail_participants@td.com'
-  },
-  {
-    name: 'Former Participants',
-    address: 'mail_former_participants@td.com'
-  },
-  {
-    name: 'Sponsors',
-    address: 'mail_sponsors@td.com'
-  },
-  {
-    name: 'Mentors',
-    address: 'mail_mentors@td.com'
-  },
-  {
-    name: 'Just for testing',
-    address: 'test_account@tamudatathon.com'
-  }
-];
