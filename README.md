@@ -1,6 +1,6 @@
 ## Getting Started
 
-Populate .env.* files, and remove the .example extension
+Populate `.env.*` files, and remove the `.example` extension
 
 ```bash
 npm install
