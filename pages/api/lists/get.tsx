@@ -2,6 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Mailgun from 'mailgun-js';
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+  const headers = res.getHeaders();
+  if (!headers || !headers['x-mercury-api-key'] || headers['x-mercury-api-key'] != process.env.MERCURY_API_KEY) {
+    throw new Error('MERCURY_API_KEY missing or invalid .env.development.local');
+  }
   if (!process.env.MAILGUN_API_KEY || !process.env.MAILGUN_DOMAIN) {
     throw new Error('MAILGUN_API_KEY or MAILGUN_DOMAIN are not defined in .env.development.local');
   }
