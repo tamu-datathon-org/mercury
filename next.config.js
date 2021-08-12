@@ -7,12 +7,15 @@ module.exports = {
   async headers() {
     return [
       {
-        source: "/mailing/api/:path*",
+        source: '/:path*',
         headers: [
-          { key: "Access-Control-Allow-Origin", value: "https://tamudatathon.com" }
+          {
+            key: 'x-mercury-api-key',
+            value: process.env.MERCURY_API_KEY
+          }
         ]
       }
-    ]
+    ];
   },
   sassOptions: {
     includePaths: [path.join(__dirname)]
