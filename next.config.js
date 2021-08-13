@@ -4,19 +4,6 @@ const defaultBasePath = '/mailing';
 const defaultFallbackUrl = 'https://tamudatathon.com/:path*';
 
 module.exports = {
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'x-mercury-api-key',
-            value: process.env.MERCURY_API_KEY
-          }
-        ]
-      }
-    ];
-  },
   sassOptions: {
     includePaths: [path.join(__dirname)]
   },
