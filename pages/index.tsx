@@ -33,8 +33,7 @@ export default function Home(): JSX.Element {
         html: emailHtml
       }),
       headers: new Headers({
-        'Content-Type': 'application/json',
-        'x-mercury-api-key': process.env.NEXT_PUBLIC_MERCURY_API_KEY
+        'Content-Type': 'application/json'
       }),
       method: 'POST'
     });
@@ -72,11 +71,7 @@ export default function Home(): JSX.Element {
 
   const [mailingLists, setMailingLists] = useState([]);
   useEffect(() => {
-    fetch('/mailing/api/lists/get', {
-      headers: new Headers({
-        'x-mercury-api-key': process.env.NEXT_PUBLIC_MERCURY_API_KEY
-      })
-    })
+    fetch('/mailing/api/lists/get')
       .then((res) => res.json())
       .then((data) => setMailingLists(data.items));
   }, []);
