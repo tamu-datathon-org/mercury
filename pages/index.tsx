@@ -100,7 +100,7 @@ export default function Home(): JSX.Element {
           /* If user is admin, show everything normally */
           <>
             <Divider align="start">E-mail Recipients</Divider>
-            <Text className="sub-heading">Choose which lists to send a mail to:</Text>
+            <Text className="sub-heading">Choose which lists to send a mail to (there may be overlap between lists):</Text>
             <Checkbox.Group value={[]} size="medium" onChange={mailingListSelectionHandler}>
               {mailingLists.map((mList, i) => (
                 <Checkbox key={`mailing-list-${i}`} value={mList.address}>
